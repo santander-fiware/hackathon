@@ -1,0 +1,43 @@
+{
+
+  "name": "santahack",
+  "version": "0.0.1",
+  "author": "Alejandro Perezpayá <alejandro@perezpaya.net>",
+  "description": "Santander fi-ware hacakthon",
+  "contributors": [
+    {
+      "name": "Alejandro Perezpayá",
+      "email": "alejandro@perezpaya.net"
+    } 
+  ],
+
+  "scripts": {
+    "start": "node main.js",
+    "stop": "echo Hey!"
+  },
+
+  "main": "main.js",
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexperezpaya/santahack.git"
+  },
+  
+  "keywords": [
+    "hive",
+    "redis",
+    "fi-ware",
+    "ope-data",
+    "big-data"
+  ],
+  
+  "dependencies" : {
+    "express"   :  "*",
+    "thrift-hive" : "*"
+  },
+  
+  "license": "MIT"
+
+}
+
+     
