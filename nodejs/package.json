@@ -37,7 +37,8 @@
     "async": "*",
     "redis": "*",
     "mysql": "*",
-    "hiredis": "*"
+    "hiredis": "*",
+    "request": "*"
   },
   
   "license": "MIT"
