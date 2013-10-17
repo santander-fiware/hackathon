@@ -33,7 +33,11 @@
   
   "dependencies" : {
     "express"   :  "*",
-    "thrift-hive" : "*"
+    "thrift-hive" : "*",
+    "async": "*",
+    "redis": "*",
+    "mysql": "*",
+    "hiredis": "*"
   },
   
   "license": "MIT"

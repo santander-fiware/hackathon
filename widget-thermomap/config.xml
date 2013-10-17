@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The Template core element. This element is mandatory -->
+<Template xmlns="http://wirecloud.conwet.fi.upm.es/ns/template#">
+
+    <!-- Catalog.ResourceDescription element. This element defines the core metadata of the widget -->
+    <Catalog.ResourceDescription>
+        <!-- Vendor: Company that distributes the widget -->
+        <Vendor>BigDaters</Vendor>
+        <!-- Name: Name of the widget -->
+        <Name>Traffic Heatmap</Name>
+        <!-- Version: Current widget version number-->
+        <Version>5.0</Version>
+        <!-- DisplayName: Name shown in the UI of the widget -->
+        <DisplayName>Traffic Heatmap</DisplayName>
+        <!-- Author: Widget developer(s) -->
+        <Author>alex</Author>
+        <!-- Mail: Developer's email address -->
+        <Mail>alejandro@perezpaya.net</Mail>
+        <!-- Description: Full widget description to be shown in the catalogue -->
+        <Description>Heatmap map plugin that draws heat for traffic crowdness predictions</Description>
+        <!-- Absolute or template-relative path to the image shown in the catalogue -->
+        <ImageURI>images/logo.png</ImageURI>
+        <!-- Absolute or template-relative path to the image to be used in smartphones -->
+        <iPhoneImageURI>images/logo.png</iPhoneImageURI>
+    </Catalog.ResourceDescription>
+
+    <!-- Platform.Preferences element. It defines user preferences -->
+<!--     <Platform.Preferences>
+        <Preference name="api_key" type="text" description="Weather Uderground API key" label="API key" />
+    </Platform.Preferences> -->
+
+    <!-- Platform.StateProperties element. It defines user preferences -->
+    <Platform.StateProperties>
+    </Platform.StateProperties>
+
+    <Platform.Wiring>
+        <OutputEndpoint name="sensor_id" 
+                        type="text" 
+                        label="Traffic Sensor Id Clicked"
+                        description="The event is launched when user clicks a sensor"
+                        friendcode="sensor_id"/>
+        <InputEndpoint  name="time_stamp"
+                        type="text"
+                        label="Shows traffic predictions by timestamp"
+                        description="Shows traffic predictions by timestamp day_week-day_year-timehour"
+                        friendcode="time_stamp"/>
+    </Platform.Wiring>
+
+    <!-- Platform.Link element. It binds the template with the actual widget's source code. -->
+    <Platform.Link>
+        <!-- XHTML element. It has the href attribute that links to the source code of the widget. -->
+        <!--                contenttype and cacheable attributes are optional -->
+        <XHTML href="index.html"/>
+
+    </Platform.Link>
+
+    <!-- Platform.Rendering element. It specifies the default width and height of the widget -->
+    <Platform.Rendering width="10" height="10"/>
+
+</Template>
