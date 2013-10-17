@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<title>heatmap.js GMaps Heatmap Layer</title>
+<title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             body, html {
@@ -17,16 +17,15 @@
             }
         </style>
 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
 
 </head>
 <body>
 <div id="main">
     <div id="heatmapArea"></div>
 </div>
-<script type="text/javascript" src="js/heatmap.js"></script>
-<script type="text/javascript" src="js//heatmap-gmaps.js"></script>
+
 <script type="text/javascript">
 
 var map;
@@ -50,29 +49,28 @@ window.onload = function(){
       scaleControl: true,
       disableDoubleClickZoom: false
     };
+
     map = new google.maps.Map(document.getElementById("heatmapArea"), myOptions);
-    
-    heatmap = new HeatmapOverlay(map, {"radius":60, "visible":true, "opacity":100, "gradient": { 0.33: "green", 0.66: "yellow", 1.0: "red" }});
-    
-    //heatmap.addDataPoint(lat,lng,count);
-    
-/*    document.getElementById("tog").onclick = function(){
-        heatmap.toggle();
-    };*/
 
     var markers = [];
+    var heatMarkers = [];
+
+    function deletePoints(){
+        for(var i in markers){
+
+            markers[i].setMap(null);
+
+        }
+
+        heatmap.setMap(null);
+
+        heatMarkers = [];
+
+    }
 
     function drawPointsFromJson (day_week, day_year, time_hour){
 
         $.getJSON('http://130.206.83.130/getprediction.php?day_week='+day_week+'&day_year='+day_year+'&time_hour='+time_hour, function (data){
-
-            var testData = {
-                max: data.length,
-                data: data
-            };
-
-            heatmap.setDataSet(testData);
-  
 
 //http://maps.google.com/mapfiles/dd-start.png
 
@@ -82,30 +80,47 @@ window.onload = function(){
 
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(d.lat, d.lng),
-                    title:d.id
+                    title:d.id,
+                    weight: d.count
                 });
 
-                markers.push(markers);
+                heatMarkers.push({location: new google.maps.LatLng(d.lat, d.lng), weight: d.count});
+
+                markers.push(marker);
 
                 marker.setMap(map);
 
                 google.maps.event.addListener(marker, 'click', function() {
 
-                    MashupPlatform.wiring.pushEvent('sensor_id', d.id);
+                    MashupPlatform.wiring.pushEvent('sensor_id', this.title);
+
+                    $.get('http://130.206.83.130/lampcolor.php?count='+this.weight);
                 
                 });
 
 
             };
 
-            map.setZoom(10)
+            var heatpoints = new google.maps.MVCArray(heatMarkers);
 
+            heatmap = new google.maps.visualization.HeatmapLayer({
+                data: heatpoints
+            });
+
+            heatmap.setOptions({radius: 40});
+
+            heatmap.setMap(map);
+
+            map.setCenter(new google.maps.LatLng(43.4499, -3.8301));
+            map.setZoom(12);
 
         });
 
     }
 
     function drawTimeStamp (data){
+
+        console.log(data);
 
         var d = data.split('-');
 
@@ -114,8 +129,19 @@ window.onload = function(){
     }
 
     // MashupPlatform.wiring.pushEvent('sensor_id', sensoridclicked);
-    MashupPlatform.wiring.registerCallback('time_stamp', drawTimeStamp);
     
+    MashupPlatform.wiring.registerCallback('time_stamp', function (string){
+
+        if((markers || heatMarkers) && heatmap && typeof heatmap.setMap !== 'undefined'){
+            deletePoints();
+        }
+
+        drawTimeStamp(string);
+
+    });
+    
+
+
     // MashupPlatform.http.makeRequest(url, {
     //     method: 'GET',
     //     onSuccess: function (transport) {

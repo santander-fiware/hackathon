@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Datepicker</title>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="css/datepicker.css" />
+<!-- 
+    OR if you want to use the calendar in a right-to-left website
+    just use the other CSS file instead and don't forget to switch g_jsDatePickDirectionality variable to "rtl"!
+    
+    <link rel="stylesheet" type="text/css" media="all" href="jsDatePick_ltr.css" />
+-->
+<script type="text/javascript" src="js/datepicker.js"></script>
+
+<style type="text/css">
+    
+.center{
+    position: absolute;
+    margin: 0 auto;
+}
+
+.hour_picker{
+
+}
+
+</style>
+
+<!-- 
+    After you copied those 2 lines of code , make sure you take also the files into the same folder :-)
+    Next step will be to set the appropriate statement to "start-up" the calendar on the needed HTML element.
+    
+    This example is of the direct HTML appending calendar version which can be used
+    in two ways. with a stripped mode or without.
+    
+    BUT - in both cases , it simply attaches to an HTML element and stays there.    
+    
+    When used in this way , you will have to make a javascript function that will be registered
+    as an event handler of the clicking action on each day.
+    
+    This is done easily like shown in the example.
+-->
+<script type="text/javascript">
+
+    Date.prototype.getDayOfYear = function() {
+      var onejan = new Date(this.getFullYear(),0,1);
+      return Math.ceil((this - onejan) / 86400000);
+    }
+
+    var calendar_date;
+
+    window.onload = function(){
+    
+        document.getElementById('time_hour').value = new Date().getHours(); 
+        
+        g_globalObject = new JsDatePick({
+            useMode:1,
+            isStripped:true,
+            target:"calendar",
+            cellColorScheme:"torqoise",
+            dateFormat:"%m-%d-%Y",
+            imgPath:"css/img/",
+            weekStartDay:1
+        });     
+        
+        g_globalObject.setOnSelectedDelegate(function(){
+            calendar_date = g_globalObject.getSelectedDay();
+        });
+        
+    };
+
+    function submit(){
+
+        if(calendar_date){
+
+            var date = new Date(calendar_date.month + ' ' + calendar_date.day + ' ' + calendar_date.year + ' ' + document.getElementById('time_hour').value +':00:00 GMT+0200 (CEST)');
+
+            var time_hour = date.getHours();
+
+            var day_week = (date.getDay() === 0) ? 7 : date.getDay();
+
+            var day_year = date.getDayOfYear();
+
+            console.log(day_week + '-' + day_year + '-' + time_hour);
+
+            MashupPlatform.wiring.pushEvent('time_stamp', day_week + '-' + day_year + '-' + time_hour);
+
+        }
+    };
+
+
+/*
+    Sat Oct 19 2013 23:08:55 GMT+0200 (CEST)
+
+      var date = new Date();
+
+      var time_hour = date.getHours();
+
+      var day_week = (date.getDay() === 0) ? 7 : date.getDay();
+
+      var day_year = date.getDayOfYear();
+
+*/  
+
+</script>
+</head>
+<body>
+    <div class="center">
+        <div id="calendar" style="width:205px; height:230px;"></div>
+        <div id="hour"><input id="time_hour" type="number" name="quantity" min="0" max="23"></div>
+        <div><button onclick="submit()">Submit</button></div>
+    </div>    
+
+</body>
+</html>

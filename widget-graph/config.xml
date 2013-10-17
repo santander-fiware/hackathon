@@ -8,17 +8,17 @@
         <!-- Vendor: Company that distributes the widget -->
         <Vendor>BigDaters</Vendor>
         <!-- Name: Name of the widget -->
-        <Name>Traffic Heatmap</Name>
+        <Name>Traffic Graph</Name>
         <!-- Version: Current widget version number-->
-        <Version>1.8</Version>
+        <Version>0.1</Version>
         <!-- DisplayName: Name shown in the UI of the widget -->
-        <DisplayName>Traffic Heatmap</DisplayName>
+        <DisplayName>Traffic Graph</DisplayName>
         <!-- Author: Widget developer(s) -->
         <Author>alex</Author>
         <!-- Mail: Developer's email address -->
         <Mail>alejandro@perezpaya.net</Mail>
         <!-- Description: Full widget description to be shown in the catalogue -->
-        <Description>Heatmap map plugin that draws heat for traffic crowdness predictions</Description>
+        <Description>Graph Widget</Description>
         <!-- Absolute or template-relative path to the image shown in the catalogue -->
         <ImageURI>images/logo.png</ImageURI>
         <!-- Absolute or template-relative path to the image to be used in smartphones -->
@@ -35,16 +35,11 @@
     </Platform.StateProperties>
 
     <Platform.Wiring>
-        <OutputEndpoint name="sensor_id" 
+        <InputEndpoint  name="sensor_id" 
                         type="text" 
-                        label="Traffic Sensor Id Clicked"
-                        description="The event is launched when user clicks a sensor"
+                        label="Traffic Sensor Id"
+                        description="Finds traffic data by sensor_id"
                         friendcode="sensor_id"/>
-        <InputEndpoint  name="time_stamp"
-                        type="text"
-                        label="Shows traffic predictions by timestamp"
-                        description="Shows traffic predictions by timestamp day_week-day_year-timehour"
-                        friendcode="time_stamp"/>
     </Platform.Wiring>
 
     <!-- Platform.Link element. It binds the template with the actual widget's source code. -->
@@ -56,6 +51,6 @@
     </Platform.Link>
 
     <!-- Platform.Rendering element. It specifies the default width and height of the widget -->
-    <Platform.Rendering width="10" height="20"/>
+    <Platform.Rendering width="10" height="10"/>
 
 </Template>
