@@ -13,9 +13,7 @@ var async = require('async');
 
 var hiveLib = require('thrift-hive');
 var mysqlLib = require('mysql');
-var redisLib = require('redis');
 
-var redis = redisLib.createClient();
 
 var mysql = mysqlLib.createConnection({
   host     : 'localhost',
@@ -23,10 +21,6 @@ var mysql = mysqlLib.createConnection({
   password : 'root',
   port     : '3306',
   database : 'bigdata'
-});
-
-redis.on('error', function (err) {
-  console.log('Redis Error ' + err);
 });
 
 var hive = hiveLib.createClient({
