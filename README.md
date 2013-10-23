@@ -1,7 +1,6 @@
-
 #TrafficHeat
 
-Traffic Prediction using machine learning algorithm with data from Fi-ware Cosmos enabler that is processed to get predictions of traffic in an especific moment
+Traffic Prediction using machine learning algorithm with data from Fi-ware Cosmos enabler that is processed to get traffic predictions of an especific moment.
 
 
 ### Freatures
