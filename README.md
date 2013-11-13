@@ -11,7 +11,7 @@ Traffic Prediction using machine learning algorithm with data from Fi-ware Cosmo
 - Highchart integrations
 
 ### Technologies
-- NodeJS (Thrift-hibe connection)
+- NodeJS (Thrift-hive connection)
 - PHP (Algorithm implementation)
 - MYSQL (Storage the filtered hive data and also calculated coeficents)
 - HTML5 Wirecloud Widgets
